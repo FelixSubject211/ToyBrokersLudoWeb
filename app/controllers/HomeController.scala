@@ -39,7 +39,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     }
   }
 
-  def getMoves() = Action { implicit request: Request[AnyContent] =>
+  def getPossibleMoves() = Action { implicit request: Request[AnyContent] =>
     controller.getShouldDice match {
       case true => Conflict("Illegal state, player have to dice")
       case false => Ok(controller.getPossibleMoves(controller.getDice).toString())
@@ -52,7 +52,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     }
     controller.getPossibleMoves(controller.getDice).lift(index) match {
       case Some(move) => {
-        controller.doAndPublish (controller.move, move )
+        controller.doAndPublish(controller.move, move)
         Ok(move.toString)
       }
       case None => Conflict("Illegal move index")
@@ -66,6 +66,20 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
 
   def redo() = Action { implicit request: Request[AnyContent] =>
     controller.doAndPublish(controller.redo)
+    Ok("success")
+  }
+
+  def save(path: String) = Action { implicit request: Request[AnyContent] =>
+    controller.save(path)
+    Ok("success")
+  }
+
+  def getSaveGames() = Action { implicit request: Request[AnyContent] =>
+    Ok(controller.getTargets().toString())
+  }
+
+  def load(path: String) = Action { implicit request: Request[AnyContent] =>
+    controller.load(path)
     Ok("success")
   }
 }
