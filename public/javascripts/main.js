@@ -14,6 +14,9 @@ function doDice() {
     xhr.send();
 }
 
+function doMove(tokenString) {
+}
+
 function undo() {
     let xhr = new XMLHttpRequest();
     let url = 'http://localhost:9000/undo';
@@ -87,7 +90,7 @@ function fetchSaveGames() {
                 responseList.appendChild(listItem);
             }
         } else {
-            console.error('Fehler beim Request: ' + xhr.status);
+            console.error('error fetchSaveGames : ' + xhr.status);
         }
     };
     xhr.send();

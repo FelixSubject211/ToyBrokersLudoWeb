@@ -47,9 +47,12 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   }
 
   def getPossibleMoves() = Action { implicit request: Request[AnyContent] =>
+    Json.toJson(controller.getTargets())
     controller.getShouldDice match {
       case true => Conflict("Illegal state, player have to dice")
-      case false => Ok(controller.getPossibleMoves(controller.getDice).toString())
+      case false => Ok(Json.toJson(controller.getPossibleMoves(controller.getDice).map( move =>
+        move.token.toString
+      )))
     }
   }
 
