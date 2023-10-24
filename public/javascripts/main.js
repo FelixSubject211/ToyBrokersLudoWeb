@@ -1,4 +1,21 @@
 
+
+function doDice() {
+    let xhr = new XMLHttpRequest();
+    let url = 'http://localhost:9000/dice';
+    xhr.open('GET', url, true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            let response = xhr.responseText;
+            let dice = document.getElementById('dice');
+            dice.textContent = response;
+        } else {
+            console.error("error dice " + xhr.status);
+        }
+    };
+    xhr.send();
+}
+
 function saveGame(input) {
     let xhr = new XMLHttpRequest();
     let url = 'http://localhost:9000/save/' + input;

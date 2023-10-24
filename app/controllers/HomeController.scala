@@ -19,12 +19,10 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   new TUI(controller)
 
   def game() = Action { implicit request: Request[AnyContent] =>
-    val text = controller.field.toString
-    val htmlText = s"<pre>${text.replace("\n", "<br>")}</pre>"
-    val html: Html = Html(htmlText)
-    val gameBoard = views.html.gameBoard(content = html)
+    val gameBoard = views.html.gameBoard(matrix = controller.getMatrix)
     val menu = views.html.menu()
-    Ok(views.html.main(title = "Toy Brokers Ludo")(gameBoard = gameBoard)(menu = menu))
+    val dice = views.html.dice()
+    Ok(views.html.main(title = "Toy Brokers Ludo")(gameBoard = gameBoard)(menu = menu)(dice = dice))
   }
 
   def dice() = Action { implicit request: Request[AnyContent] =>

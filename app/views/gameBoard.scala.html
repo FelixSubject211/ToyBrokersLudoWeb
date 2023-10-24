@@ -1,6 +1,16 @@
-@(content: Html)
+@(matrix: de.htwg.se.toybrokersludo.model.FieldBaseImpl.Matrix)
 
-<div>@content</div>
+<table>
+    @for(rowList <- matrix.map) {
+        <tr>
+        @for(cell <- rowList) {
+            <td width="20" height="20" @if(cell.isAPlayField) {style="border: 1px solid black;"}>
+            @cell.token.map(token => token.toString).getOrElse("")
+            </td>
+        }
+        </tr>
+    }
+</table>
 
 
 
