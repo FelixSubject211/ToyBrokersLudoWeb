@@ -6,9 +6,7 @@ function doDice() {
     xhr.open('GET', url, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
-            let response = xhr.responseText;
-            let dice = document.getElementById('dice');
-            dice.textContent = response;
+            location.reload()
         } else {
             console.error("error dice " + xhr.status);
         }

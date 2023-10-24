@@ -4,7 +4,7 @@
  * two arguments, a `String` for the title of the page and an `Html`
  * object to insert into the body of the page.
  *@
-@(title: String)(gameBoard: Html)(menu: Html)(dice: Html)
+@(title: String)(gameBoard: Html)(menu: Html)(dice: Html)(snackbar: String)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +24,7 @@
                 <td class="right-column">
                     @menu
                     @dice
+                    @snackbar
                 </td>
             </tr>
         </table>
