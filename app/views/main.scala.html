@@ -4,7 +4,7 @@
  * two arguments, a `String` for the title of the page and an `Html`
  * object to insert into the body of the page.
  *@
-@(title: String)(content: Html)
+@(title: String)(gameBoard: Html)(menu: Html)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,33 +13,18 @@
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-
     </head>
     <body>
         <h1>@title</h1>
-
-        @content
-
-
-        <h4>Save Games</h4>
-        <ul id="responseList"></ul>
-
-        <script>
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'http://localhost:9000/saveGames', true);
-            xhr.send();
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    for (var i = 0; i < response.length; i++) {
-                        var listItem = document.createElement('li');
-                        listItem.textContent = response[i];
-                        responseList.appendChild(listItem);
-                    }
-                } else {
-                    console.error('Fehler beim Request: ' + xhr.status);
-                }
-            };
-        </script>
+        <table>
+            <tr>
+                <td class="left-column">
+                    @gameBoard
+                </td>
+                <td class="right-column">
+                    @menu
+                </td>
+            </tr>
+        </table>
     </body>
 </html>

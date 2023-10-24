@@ -4,15 +4,15 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.game()
-GET     /possibleMoves              controllers.HomeController.getPossibleMoves()
-GET     /saveGames                  controllers.HomeController.getSaveGames()
-PATCH   /dice                       controllers.HomeController.dice()
-PATCH   /move/:index                controllers.HomeController.move(index: Int)
-PATCH   /undo                       controllers.HomeController.undo()
-PATCH   /redo                       controllers.HomeController.redo()
-PATCH   /load/:path                 controllers.HomeController.load(path: String)
-PATCH   /save/:path                 controllers.HomeController.save(path: String)
+GET   /                           controllers.HomeController.game()
+GET   /possibleMoves              controllers.HomeController.getPossibleMoves()
+GET   /saveGames                  controllers.HomeController.getSaveGames()
+GET   /dice                       controllers.HomeController.dice()
+GET   /move/:index                controllers.HomeController.move(index: Int)
+GET   /undo                       controllers.HomeController.undo()
+GET   /redo                       controllers.HomeController.redo()
+GET   /load/:path                 controllers.HomeController.load(path: String)
+GET   /save/:path                 controllers.HomeController.save(path: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

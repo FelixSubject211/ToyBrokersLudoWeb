@@ -22,7 +22,9 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     val text = controller.field.toString
     val htmlText = s"<pre>${text.replace("\n", "<br>")}</pre>"
     val html: Html = Html(htmlText)
-    Ok(views.html.main(title = "Toy Brokers Ludo")(content = html))
+    val gameBoard = views.html.gameBoard(content = html)
+    val menu = views.html.menu()
+    Ok(views.html.main(title = "Toy Brokers Ludo")(gameBoard = gameBoard)(menu = menu))
   }
 
   def dice() = Action { implicit request: Request[AnyContent] =>
