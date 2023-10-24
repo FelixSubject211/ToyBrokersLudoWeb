@@ -2,25 +2,20 @@ package controllers
 
 import de.htwg.se.toybrokersludo.aview.TUI
 import de.htwg.se.toybrokersludo.controller.Controller
-
-import javax.inject._
-import play.api._
-import play.api.mvc._
 import de.htwg.se.toybrokersludo.model.FieldBaseImpl.Field
 import de.htwg.se.toybrokersludo.model.FileIO.JsonImpl.FileIo
+import play.api.mvc._
 import play.twirl.api.Html
 
-/**
- * This controller creates an `Action` to handle HTTP requests to the
- * application's home page.
- */
+import javax.inject._
+
 @Singleton
 class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
-  val field = new Field()
-  val fileIO = new FileIo()
-  val controller = new Controller(field, fileIO)
-  val tui = new TUI(controller)
+  private val field = Field()
+  private val fileIO = FileIo()
+  private val controller = new Controller(field, fileIO)
+  new TUI(controller)
 
   def game() = Action { implicit request: Request[AnyContent] =>
     val text = controller.field.toString
@@ -51,10 +46,9 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
       Conflict("Illegal state, player have to dice")
     }
     controller.getPossibleMoves(controller.getDice).lift(index) match {
-      case Some(move) => {
+      case Some(move) =>
         controller.doAndPublish(controller.move, move)
         Ok(move.toString)
-      }
       case None => Conflict("Illegal move index")
     }
   }
