@@ -4,6 +4,7 @@ import de.htwg.se.toybrokersludo.aview.TUI
 import de.htwg.se.toybrokersludo.controller.Controller
 import de.htwg.se.toybrokersludo.model.FieldBaseImpl.Field
 import de.htwg.se.toybrokersludo.model.FileIO.JsonImpl.FileIo
+import play.api.libs.json.Json
 import play.api.mvc._
 import play.twirl.api.Html
 
@@ -69,7 +70,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   }
 
   def getSaveGames() = Action { implicit request: Request[AnyContent] =>
-    Ok(controller.getTargets().toString())
+    Ok(Json.toJson(controller.getTargets()))
   }
 
   def load(path: String) = Action { implicit request: Request[AnyContent] =>
