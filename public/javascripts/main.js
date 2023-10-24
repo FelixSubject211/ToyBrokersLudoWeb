@@ -16,13 +16,41 @@ function doDice() {
     xhr.send();
 }
 
+function undo() {
+    let xhr = new XMLHttpRequest();
+    let url = 'http://localhost:9000/undo';
+    xhr.open('GET', url, true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            location.reload()
+        } else {
+            console.error("error undo " + xhr.status);
+        }
+    };
+    xhr.send(JSON.stringify(''));
+}
+
+function redo() {
+    let xhr = new XMLHttpRequest();
+    let url = 'http://localhost:9000/redo';
+    xhr.open('GET', url, true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            location.reload()
+        } else {
+            console.error("error redo " + xhr.status);
+        }
+    };
+    xhr.send(JSON.stringify(''));
+}
+
 function saveGame(input) {
     let xhr = new XMLHttpRequest();
     let url = 'http://localhost:9000/save/' + input;
     xhr.open('GET', url, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
-            fetchSaveGames()
+            location.reload()
         } else {
             console.error("error saveGame " + xhr.status);
         }

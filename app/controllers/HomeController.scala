@@ -21,7 +21,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   def game() = Action { implicit request: Request[AnyContent] =>
     val gameBoard = views.html.gameBoard(matrix = controller.getMatrix)
     val menu = views.html.menu()
-    val dice = views.html.dice()
+    val dice = views.html.dice(dice = controller.getDice.toString)
     Ok(views.html.main(title = "Toy Brokers Ludo")(gameBoard = gameBoard)(menu = menu)(dice = dice))
   }
 
