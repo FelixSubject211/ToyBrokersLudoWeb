@@ -114,3 +114,55 @@
 
 
 
+
+menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 5em;
+}
+
+#textField {
+    padding: 1em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 1em;
+}
+
+button {
+    padding: 1em 2em;
+    margin: 1em;
+    border: none;
+    border-radius: 0.1em;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    overflow-y: auto;
+    max-height: 10em;
+}
+
+li {
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 0.1em solid #ccc;
+    border-radius: 0.1em;
+    cursor: pointer;
+}
+
+
+#undoButton,
+#redoButton {
+    background-color: lightgray;
+}
+
+li:hover {
+    background-color: #f0f0f0;
+}
+
+
+
+
