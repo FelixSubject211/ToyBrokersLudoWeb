@@ -1,0 +1,25 @@
+@(matrix: de.htwg.se.toybrokersludo.model.FieldBaseImpl.Matrix)
+
+<table>
+    @for(rowList <- matrix.map) {
+        <tr>
+        @for(cell <- rowList) {
+            <td class="token" width="20" height="20" @if(cell.isAPlayField) {style="border: 1px solid black;"}>
+                @cell.token.map(token => token.toString).getOrElse("")
+            </td>
+        }
+        </tr>
+    }
+</table>
+
+<script type="text/javascript">
+        const cells = document.querySelectorAll('.token');
+        cells.forEach(cell => {
+            cell.addEventListener('click', function() {
+                doMove(cell.textContent)
+            });
+        });
+</script>
+
+
+

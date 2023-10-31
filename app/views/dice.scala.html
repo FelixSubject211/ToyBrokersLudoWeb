@@ -1,0 +1,13 @@
+@(dice: String)
+
+<button id="dice">@dice</button>
+
+<script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+        let dice = document.getElementById('dice');
+
+        dice.addEventListener('click', function () {
+            doDice()
+        });
+</script>

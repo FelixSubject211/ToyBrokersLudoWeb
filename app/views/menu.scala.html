@@ -1,0 +1,46 @@
+@()
+
+<div>
+    <input type="text" id="textField" placeholder="Name for the game state">
+    <button id="saveButton">save</button>
+    <ul id="responseList"></ul>
+    <button id="undoButton"><</button>
+    <button id="redoButton">></button>
+
+
+    <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
+
+    <script type="text/javascript">
+            let saveButton = document.getElementById('saveButton');
+            let textField = document.getElementById('textField');
+            let responseList = document.getElementById('responseList');
+            let undoButton = document.getElementById('undoButton');
+            let redoButton = document.getElementById('redoButton');
+
+            document.addEventListener("DOMContentLoaded", function () {
+                fetchSaveGames();
+            });
+
+            saveButton.addEventListener('click', function () {
+                let inputValue = textField.value;
+                if (inputValue) {
+                    saveGame(inputValue);
+                    textField.value = '';
+                }
+            });
+
+            responseList.addEventListener('click', function (event) {
+                if (event.target.tagName === 'LI') {
+                    loadGame(event.target.textContent)
+                }
+            });
+
+            undoButton.addEventListener('click', function () {
+                undo()
+            });
+
+            redoButton.addEventListener('click', function () {
+                undo()
+            });
+    </script>
+</div>
