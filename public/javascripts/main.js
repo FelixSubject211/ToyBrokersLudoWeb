@@ -2,7 +2,7 @@
 
 function doDice() {
     let xhr = new XMLHttpRequest();
-    let url = 'http://localhost:9000/dice';
+    let url = 'http://localhost:9000/game/dice';
     xhr.open('GET', url, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -19,7 +19,7 @@ function doMove(tokenString) {
 
 function undo() {
     let xhr = new XMLHttpRequest();
-    let url = 'http://localhost:9000/undo';
+    let url = 'http://localhost:9000/game/undo';
     xhr.open('GET', url, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -33,7 +33,7 @@ function undo() {
 
 function redo() {
     let xhr = new XMLHttpRequest();
-    let url = 'http://localhost:9000/redo';
+    let url = 'http://localhost:9000/game/redo';
     xhr.open('GET', url, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -47,7 +47,7 @@ function redo() {
 
 function saveGame(input) {
     let xhr = new XMLHttpRequest();
-    let url = 'http://localhost:9000/save/' + input;
+    let url = 'http://localhost:9000/game/save/' + input;
     xhr.open('GET', url, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -62,7 +62,7 @@ function saveGame(input) {
 
 function loadGame(name) {
     let xhr = new XMLHttpRequest();
-    let url = 'http://localhost:9000/load/' + name;
+    let url = 'http://localhost:9000/game/load/' + name;
     xhr.open('GET', url, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -78,7 +78,7 @@ function loadGame(name) {
 
 function fetchSaveGames() {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:9000/saveGames', true);
+    xhr.open('GET', 'http://localhost:9000/game/saveGames', true);
     xhr.onload = function () {
         if (xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);

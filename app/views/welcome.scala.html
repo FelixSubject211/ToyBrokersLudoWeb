@@ -1,0 +1,35 @@
+@(start: String)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>@start</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    </head>
+    <body>
+        <h2>@start</h2>
+        <table>
+            <tr>
+                <td></td>
+                <td>Regeln</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <p>"Mensch ärgere dich nicht" ist ein Gesellschaftsspiel für 2-4 Spieler,<br>
+                    bei dem das Ziel darin besteht,<br>
+                    alle eigenen Spielsteine vom Startfeld ins Zielfeld zu bewegen.<br>
+                    Die Spieler würfeln, um ihre Spielsteine ins Spiel zu bringen<br>
+                    und dann entlang eines Kurses zu bewegen,<br>
+                    wobei sie auf bereits besetzten Feldern die Spielsteine der Gegner schlagen können.<br>
+                    Das Ziel ist es, als erster alle eigenen Spielsteine ins Zielfeld zu bringen.</p>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><a href="http://localhost:9000/game">Spielen</a></td>
+            </tr>
+        </table>
+    </body>
+</html>
