@@ -1,11 +1,33 @@
 @(matrix: de.htwg.se.toybrokersludo.model.FieldBaseImpl.Matrix)
 
-<table>
+<table class="game-table">
     @for(rowList <- matrix.map) {
         <tr>
         @for(cell <- rowList) {
-            <td class="token" width="20" height="20" @if(cell.isAPlayField) {style="border: 1px solid black;"}>
-                @cell.token.map(token => token.toString).getOrElse("")
+            <td class="token
+                @(if (cell.token match {
+                case Some(token) => token.getColor().equals("G")
+                case None => false
+            }) {"green-player"}
+            else if(cell.token match {
+                    case Some(token) => token.getColor().equals("R")
+                    case None => false
+                }) {"red-player"}
+                else if(cell.token match {
+                        case Some(token) => token.getColor().equals("B")
+                        case None => false
+                    }) {"blue-player"}
+                    else if(cell.token match {
+                            case Some(token) => token.getColor().equals("Y")
+                            case None => false
+                        }) {"yellow-player"}
+                        else if(List(70, 71, 72, 73).contains(cell.index)) {"green-end-field"}
+                            else if(List(74, 75, 76, 77).contains(cell.index)) {"red-end-field"}
+                                else if(List(78, 79, 80, 81).contains(cell.index)) {"blue-end-field"}
+                                    else if(List(82, 83, 84, 85).contains(cell.index)) {"yellow-end-field"}
+                                        else if(cell.isAPlayField) {"empty-field"}
+                    )">
+            @cell.token.map(token => token.toString.charAt(1)).getOrElse("")
             </td>
         }
         </tr>
@@ -16,7 +38,7 @@
         const cells = document.querySelectorAll('.token');
         cells.forEach(cell => {
             cell.addEventListener('click', function() {
-                doMove(cell.textContent)
+                doMove(cell.textContent);
             });
         });
 </script>
