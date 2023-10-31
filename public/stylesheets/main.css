@@ -1,4 +1,18 @@
 
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-0.5em); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes toggle {
+    0% { transform: rotate(0); }
+    25% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0); }
+}
+
 .game-table {
     padding: 1em;
     background: linear-gradient(45deg, ivory, moccasin);
@@ -11,7 +25,8 @@
     height: 2em;
     text-align: center;
     font-weight: bold;
-    border-radius: 30px;
+    border-radius: 3em;
+    user-select: none;
 }
 
 .green-player {
@@ -25,6 +40,7 @@
 .red-player {
     background-color: red;
 }
+
 
 .red-end-field {
     background-color: red;
@@ -46,12 +62,16 @@
     background-color: yellow;
 }
 
+.green-player:hover,
+.red-player:hover,
+.blue-player:hover,
+.yellow-player:hover {
+    border-radius: 0.75em;
+}
+
 .empty-field {
     background-color: darkgray;
 }
-
-
-
 
 .first-face {
     display: flex;
@@ -65,6 +85,7 @@
     height: 3em;
     border-radius: 10%;
     margin-right : 2em;
+    transition: transform 0.1s ease-in-out;
 }
 .dot{
     display: block;
@@ -72,6 +93,10 @@
     height: 0.7em;
     border-radius: 50%;
     background-color:white;
+}
+
+.dice:hover {
+    animation: toggle 0.5s ease-in-out;
 }
 
 .second-face{

@@ -35,10 +35,20 @@
 </table>
 
 <script type="text/javascript">
-        const cells = document.querySelectorAll('.token');
+        const cells = document.querySelectorAll('.green-player, .red-player, .blue-player, .yellow-player');
         cells.forEach(cell => {
             cell.addEventListener('click', function() {
                 doMove(cell.textContent);
+            });
+
+            cell.addEventListener('mousedown', function() {
+                cell.style.animation = 'bounce 0.5s ease-in-out'
+            });
+
+            cell.addEventListener('mouseup', function() {
+                setTimeout(() => {
+                    cell.style.animation = null;
+                }, 1000);
             });
         });
 </script>
