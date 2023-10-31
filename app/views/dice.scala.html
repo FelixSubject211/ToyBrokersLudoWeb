@@ -1,6 +1,63 @@
 @(dice: String)
 
-<button id="dice">@dice</button>
+<div id="dice">@(dice match {
+    case "1" =>
+        <div class="dice first-face">
+        <span class="dot">
+        </span>
+        </div>
+    case "2" =>
+        <div class="dice second-face">
+        <span class="dot">
+        </span>
+        <span class="dot">
+        </span>
+        </div>
+    case "3" =>
+        <div class="dice third-face">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        </div>
+    case "4" =>
+        <div class="fourth-face dice">
+        <div class="column">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        </div>
+        <div class="column">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        </div>
+        </div>
+    case "5" =>
+        <div class="fifth-face dice">
+        <div class="column">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        </div>
+        <div class="column">
+        <span class="dot"></span>
+        </div>
+        <div class="column">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        </div>
+        </div>
+    case "6" =>
+        <div class="sixth-face dice">
+        <div class="column">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        </div>
+        <div class="column">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        </div>
+        </div>
+})</div>
 
 <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
 
