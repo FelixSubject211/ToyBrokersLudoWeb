@@ -29,6 +29,10 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     (snackbar = snackbar(controller)))
   }
 
+  def welcome() = Action { implicit request: Request[AnyContent] =>
+    Ok(views.html.welcome(start = "Toy Brokers Ludo"))
+  }
+
   private def snackbar(controller: Controller): String = {
     controller.getPlayer.toString.concat(controller.getShouldDice match {
       case true => " have to dice"
