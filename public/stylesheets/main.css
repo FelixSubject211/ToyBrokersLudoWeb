@@ -185,11 +185,15 @@ button {
     cursor: pointer;
 }
 
+.button:hover {
+    background-color: darkgrey;
+}
+
 ul {
     list-style: none;
     padding: 0;
     overflow-y: auto;
-    max-height: 10em;
+    max-height: 14em;
 }
 
 li {
@@ -198,6 +202,7 @@ li {
     border: 0.1em solid #ccc;
     border-radius: 0.1em;
     cursor: pointer;
+    background: white;
 }
 
 
@@ -207,23 +212,27 @@ li {
 }
 
 li:hover {
-    background-color: #f0f0f0;
+    background-color: lightgray;
 }
 
 #gameContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width: 60%;
     margin: 0 auto;
 }
 
 #board {
-    width: 90%;
+    width: 60%;
 }
 
 #savemenu {
     width: 25%;
+}
+
+.menu-save-area {
+    display: flex;
 }
 
 
@@ -231,6 +240,13 @@ h1 {
     text-align: center;
     font-family: "Copperplate", fantasy;
     font-size: 3.5em;
+}
+
+h3 {
+    text-align: left;
+    font-family: "Copperplate", fantasy;
+    font-size: 1.5em;
+    backdrop-filter: blur(5em);
 }
 
 .welcomeContainer {
