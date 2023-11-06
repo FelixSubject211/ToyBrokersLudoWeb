@@ -1,4 +1,36 @@
 
+
+
+
+/* common ------------------------------------------------------------------ */
+body {
+    background-image: url("../images/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+button {
+    padding: 1em 2em;
+    margin: 1em;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5em;
+    background-color: lightgray;
+}
+
+h1 {
+    text-align: center;
+    font-family: "Copperplate", fantasy;
+    font-size: 3.5em;
+}
+
+h3 {
+    text-align: left;
+    font-family: "Copperplate", fantasy;
+    font-size: 1.5em;
+    backdrop-filter: blur(5em);
+}
+
 @keyframes bounce {
     0% { transform: translateY(0); }
     50% { transform: translateY(-0.5em); }
@@ -13,20 +45,67 @@
     100% { transform: rotate(0); }
 }
 
-body {
-    background-image: url("../images/background.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center top bottom;
+/* welcome ------------------------------------------------------------------ */
+.welcomeContainer {
+    text-align: center;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
+#table1 {
+    border-radius: 10px;
+    background-color: lightblue;
+}
+
+.page {
+    border: 2px solid #5f5f5f66;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-family: "Comic Sans MS", cursive;
+    font-size: 18px;
+}
+
+#spielen {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: red;
+    color: black;
+    text-decoration: none;
+    border-style: solid;
+    border-radius: 0.5em;
+    cursor: pointer;
+    font-size: 2em;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+#spielen:hover {
+    background-color: #ff8888;
+}
+
+/* game bord ------------------------------------------------------------------ */
+#gameContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    margin: 0 auto;
+}
+
+#board {
+    width: 75%;
+}
 
 .game-table {
-    /*transform: scale(1.5);*/
     border-radius: 20px;
     padding: 1em;
     background: linear-gradient(45deg, ivory, moccasin);
-    background-size: 200% 200%;
+    background-size: 150% 150%;
     animation: gradientBG 15s ease infinite;
 }
 
@@ -54,7 +133,6 @@ body {
     background-color: red;
     border-style: solid;
 }
-
 
 .red-end-field {
     background-color: red;
@@ -97,11 +175,7 @@ body {
     border-color: darkgrey;
 }
 
-.first-face {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+/* dice ------------------------------------------------------------------ */
 .dice {
     padding: 4px;
     background-color: tomato;
@@ -121,6 +195,12 @@ body {
 
 .dice:hover {
     animation: toggle 0.5s ease-in-out;
+}
+
+.first-face {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .second-face{
@@ -161,7 +241,14 @@ body {
     justify-content: center;
 }
 
+/* menu ------------------------------------------------------------------ */
+#savemenu {
+    width: 25%;
+}
 
+.menu-save-area {
+    display: flex;
+}
 menu {
     display: flex;
     flex-direction: column;
@@ -175,15 +262,6 @@ menu {
     margin-bottom: 1em;
     border: 1px solid #ccc;
     border-radius: 1em;
-}
-
-button {
-    padding: 1em 2em;
-    margin: 1em;
-    border: none;
-    cursor: pointer;
-    border-radius: 0.5em;
-    background-color: lightgray;
 }
 
 ul {
@@ -202,6 +280,9 @@ li {
     background: white;
 }
 
+li:hover {
+    background-color: lightgray;
+}
 
 #undoButton,
 #redoButton {
@@ -213,83 +294,24 @@ li {
     background-color: lightgray;
 }
 
-li:hover {
-    background-color: lightgray;
-}
-
-#gameContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 60%;
-    margin: 0 auto;
-}
-
-#board {
-    width: 75%;
-}
-
-#savemenu {
-    width: 25%;
-}
-
-.menu-save-area {
-    display: flex;
-}
 
 
-h1 {
-    text-align: center;
-    font-family: "Copperplate", fantasy;
-    font-size: 3.5em;
-}
-
-h3 {
-    text-align: left;
-    font-family: "Copperplate", fantasy;
-    font-size: 1.5em;
-    backdrop-filter: blur(5em);
-}
-
-.welcomeContainer {
-    text-align: center;
-    margin: 0 auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
 
 
-#spielen {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: red;
-    color: black;
-    text-decoration: none;
-    border-style: solid;
-    border-radius: 0.5em;
-    cursor: pointer;
-    font-size: 2em;
-    font-weight: bold;
-    transition: background-color 0.3s;
-    margin-top: 20px;
-}
 
-#spielen:hover {
-    background-color: #ff8888;
-}
 
-#table1 {
-    border-radius: 10px;
-    background-color: lightblue;
-}
 
-.page {
-    border: 2px solid #5f5f5f66;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    font-family: "Comic Sans MS", cursive;
-    font-size: 18px;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
