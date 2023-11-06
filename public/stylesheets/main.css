@@ -181,12 +181,9 @@ button {
     padding: 1em 2em;
     margin: 1em;
     border: none;
-    border-radius: 0.1em;
     cursor: pointer;
-}
-
-.button:hover {
-    background-color: darkgrey;
+    border-radius: 0.5em;
+    background-color: lightgray;
 }
 
 ul {
@@ -208,6 +205,11 @@ li {
 
 #undoButton,
 #redoButton {
+    padding: 1em 2em;
+    margin: 1em;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5em;
     background-color: lightgray;
 }
 
@@ -224,7 +226,7 @@ li:hover {
 }
 
 #board {
-    width: 60%;
+    width: 75%;
 }
 
 #savemenu {
