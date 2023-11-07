@@ -36,11 +36,36 @@
 
 <script type="text/javascript">
         const cells = document.querySelectorAll('.green-player, .red-player, .blue-player, .yellow-player');
-        cells.forEach(cell => {
-            cell.addEventListener('click', function() {
-                doMove(cell.textContent);
-            });
+        const greenPlayers = document.querySelectorAll('.green-player')
+        const redPlayers = document.querySelectorAll('.red-player')
+        const bluePlayers = document.querySelectorAll('.blue-player')
+        const yellowPlayers = document.querySelectorAll('.yellow-player')
 
+        greenPlayers.forEach(player => {
+            player.addEventListener('click', function() {
+                doMove('G'.concat(player.textContent))
+            });
+        });
+
+        redPlayers.forEach(player => {
+            player.addEventListener('click', function() {
+                doMove('R'.concat(player.textContent))
+            });
+        });
+
+        bluePlayers.forEach(player => {
+            player.addEventListener('click', function() {
+                doMove('B'.concat(player.textContent))
+            });
+        });
+
+        yellowPlayers.forEach(player => {
+            player.addEventListener('click', function() {
+                doMove('Y'.concat(player.textContent.trim()))
+            });
+        });
+
+        cells.forEach(cell => {
             cell.addEventListener('mousedown', function() {
                 cell.style.animation = 'bounce 0.5s ease-in-out'
             });

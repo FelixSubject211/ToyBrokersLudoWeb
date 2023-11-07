@@ -15,6 +15,34 @@ function doDice() {
 }
 
 function doMove(tokenString) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:9000/game/possibleMoves', true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            let index = response.indexOf(tokenString)
+            if (index !== -1) {
+
+            }
+        } else {
+            console.error('error so move : ' + xhr.status);
+        }
+    };
+    xhr.send();
+}
+
+function doIndexMove(index) {
+    let xhr = new XMLHttpRequest();
+    let url = 'http://localhost:9000/move/' + index;
+    xhr.open('GET', url, true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            location.reload()
+        } else {
+            console.error("error do move " + xhr.status);
+        }
+    };
+    xhr.send(JSON.stringify(''));
 }
 
 function undo() {
