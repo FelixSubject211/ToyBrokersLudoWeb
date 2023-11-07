@@ -20,9 +20,11 @@ function doMove(tokenString) {
     xhr.onload = function () {
         if (xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
-            let index = response.indexOf(tokenString)
+            let index = response.findIndex(item => item === tokenString);
             if (index !== -1) {
-
+                doIndexMove(index)
+            } else {
+                console.log('index = -1')
             }
         } else {
             console.error('error so move : ' + xhr.status);
@@ -33,7 +35,7 @@ function doMove(tokenString) {
 
 function doIndexMove(index) {
     let xhr = new XMLHttpRequest();
-    let url = 'http://localhost:9000/move/' + index;
+    let url = 'http://localhost:9000/game/move/' + index;
     xhr.open('GET', url, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
