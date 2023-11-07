@@ -15,19 +15,18 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
     </head>
     <body>
+    <div class="background">
         <h1>@title</h1>
-        <table>
-            <tr>
-                <td class="left-column">
-                    @gameBoard
-                    <dl>
-                        <dt>@dice @snackbar</dt>
-                    </dl>
-                </td>
-                <td class="right-column">
-                    @menu
-                </td>
-            </tr>
-        </table>
+        <div id="gameContainer">
+            <div id="board">
+                @gameBoard
+                <h3>@snackbar</h3>
+            </div>
+            @dice
+            <div id="savemenu">
+                @menu
+            </div>
+        </div>
+    </div>
     </body>
 </html>
