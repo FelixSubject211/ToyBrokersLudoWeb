@@ -3,10 +3,13 @@
 
 
 /* common ------------------------------------------------------------------ */
-body {
-    background-image: url("../images/background.jpg");
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-image: url("../images/lightBackground.svg");
     background-size: cover;
-    background-repeat: no-repeat;
+    background-position: center top;
 }
 
 button {
@@ -50,9 +53,8 @@ h3 {
     text-align: center;
     margin: 0 auto;
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%);
 }
 
 #table1 {
