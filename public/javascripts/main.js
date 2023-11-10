@@ -75,9 +75,9 @@ function redo() {
     xhr.send(JSON.stringify(''));
 }
 
-function saveGame(input) {
+function saveGame() {
     let xhr = new XMLHttpRequest();
-    let url = 'http://localhost:9000/game/save/' + input;
+    let url = 'http://localhost:9000/game/save/' + document.getElementById('textField').value;
     xhr.open('GET', url, true);
     xhr.onload = function () {
         if (xhr.status === 200) {

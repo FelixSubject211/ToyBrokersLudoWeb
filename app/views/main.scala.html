@@ -11,28 +11,16 @@
     <head>
         @* Here's where we render the page title `String`. *@
         <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
     </head>
     <body>
-    <div class="background">
-        <div id="gameContainer">
-            <div class="row">
-                <div class="col-sm-2">
-                    @menu
-                </div>
-                <div class="col-sm-8">
-                    @gameBoard
-                    <h3>@snackbar</h3>
-                </div>
-                <div class="col-sm-2">
-                    @dice
-                </div>
-            </div>
-        </div>
+        @menu
+        @gameBoard
+        <h3>@snackbar</h3>
+        @dice
 
-    </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </body>

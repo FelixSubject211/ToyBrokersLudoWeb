@@ -1,7 +1,3 @@
-
-
-
-
 /* common ------------------------------------------------------------------ */
 body, html {
     margin: 0;
@@ -10,28 +6,6 @@ body, html {
     background-image: url("../images/lightBackground.svg");
     background-size: cover;
     background-position: center top;
-}
-
-button {
-    padding: 1em 2em;
-    margin: 1em;
-    border: none;
-    cursor: pointer;
-    border-radius: 0.5em;
-    background-color: lightgray;
-}
-
-h1 {
-    text-align: center;
-    font-family: "Copperplate", fantasy;
-    font-size: 3.5em;
-}
-
-h3 {
-    text-align: left;
-    font-family: "Copperplate", fantasy;
-    font-size: 1.5em;
-    backdrop-filter: blur(5em);
 }
 
 @keyframes bounce {
@@ -48,120 +22,54 @@ h3 {
     100% { transform: rotate(0); }
 }
 
-/* welcome ------------------------------------------------------------------ */
-.welcomeContainer {
-    text-align: center;
-    margin: 0 auto;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-}
-
-#table1 {
-    border-radius: 10px;
-    background-color: lightblue;
-}
-
-.page {
-    border: 2px solid #5f5f5f66;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    font-family: "Comic Sans MS", cursive;
-    font-size: 18px;
-}
-
-#spielen {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: red;
-    color: black;
-    text-decoration: none;
-    border-style: solid;
-    border-radius: 0.5em;
-    cursor: pointer;
-    font-size: 2em;
-    font-weight: bold;
-    transition: background-color 0.3s;
-    margin-top: 20px;
-}
-
-#spielen:hover {
-    background-color: #ff8888;
-}
-
-/* game bord ------------------------------------------------------------------ */
-#gameContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 60%;
-    margin: 0 auto;
-}
-
-#board {
-    width: 75%;
-}
-
+/* game ------------------------------------------------------------------ */
 .game-table {
-    border-radius: 20px;
     padding: 1em;
-    background: linear-gradient(45deg, ivory, moccasin);
-    background-size: 150% 150%;
     animation: gradientBG 15s ease infinite;
+    border-radius: 20px;
+    background: linear-gradient(45deg, orange, moccasin);
+    background-size: 150% 150%;
 }
 
 .token {
-    width: 2em;
-    height: 2em;
+    height: 5vh;
+    width: 5vh;
     text-align: center;
     font-weight: bold;
-    border-radius: 3em;
     user-select: none;
+    border-radius: 3em;
 }
 
 .green-player {
     background-color: green;
-    border-style: solid;
 }
 
 .green-end-field {
     background-color: green;
-    border-style: solid;
-    border-width: thin;
 }
 
 .red-player {
     background-color: red;
-    border-style: solid;
 }
 
 .red-end-field {
     background-color: red;
-    border-style: solid;
-    border-width: thin;
 }
 
 .blue-player {
     background-color: blue;
-    border-style: solid;
 }
 
 .blue-end-field {
     background-color: blue;
-    border-style: solid;
-    border-width: thin;
 }
 
 .yellow-player {
     background-color: yellow;
-    border-style: solid;
 }
 
 .yellow-end-field {
     background-color: yellow;
-    border-style: solid;
-    border-width: thin;
 }
 
 .green-player:hover,
@@ -173,24 +81,22 @@ h3 {
 
 .empty-field {
     background-color: darkgray;
-    border-style: solid;
-    border-color: darkgrey;
 }
 
 /* dice ------------------------------------------------------------------ */
 .dice {
     padding: 4px;
     background-color: tomato;
-    width: 3em;
-    height: 3em;
+    width: 4em;
+    height: 4em;
     border-radius: 10%;
     margin-right : 2em;
     transition: transform 0.1s ease-in-out;
 }
 .dot{
     display: block;
-    width: 0.7em;
-    height: 0.7em;
+    width: 0.9em;
+    height: 0.9em;
     border-radius: 50%;
     background-color:white;
 }
@@ -243,77 +149,79 @@ h3 {
     justify-content: center;
 }
 
-/* menu ------------------------------------------------------------------ */
-#savemenu {
-    width: 25%;
-}
-
-.menu-save-area {
+/* navbar ------------------------------------------------------------------ */
+.navbar {
+    background-color: orange;
     display: flex;
 }
-menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 5em;
+
+.navbar-brand {
+    color: #ffffff !important;
+    font-size: 1.5em;
 }
 
-#textField {
-    padding: 1em;
-    margin-bottom: 1em;
-    border: 1px solid #ccc;
-    border-radius: 1em;
+.form-inline input,
+.form-inline button {
+    margin-right: 10px;
+    margin-top: 0.5em;
 }
 
-ul {
-    list-style: none;
-    padding: 0;
-    overflow-y: auto;
-    max-height: 14em;
+.dropdown {
+    margin-bottom: 5px;
 }
 
-li {
-    padding: 0.5em;
-    margin-bottom: 1em;
-    border: 0.1em solid #ccc;
-    border-radius: 0.1em;
-    cursor: pointer;
-    background: white;
+.dropdown.show .dropdown-menu {
+    display: block;
 }
+
+.dropdown-indicator {
+    display: inline-block;
+    margin-left: 5px;
+}
+
 
 li:hover {
     background-color: lightgray;
 }
 
-#undoButton,
-#redoButton {
-    padding: 1em 2em;
-    margin: 1em;
-    border: none;
-    cursor: pointer;
-    border-radius: 0.5em;
-    background-color: lightgray;
+/* welcome ------------------------------------------------------------------ */
+.welcomeContainer {
+    text-align: center;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
 }
 
+#table1 {
+    border-radius: 10px;
+    background-color: lightblue;
+}
 
+.page {
+    border: 2px solid #5f5f5f66;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-family: "Comic Sans MS", cursive;
+    font-size: 18px;
+}
 
+#spielen {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: red;
+    color: black;
+    text-decoration: none;
+    border-style: solid;
+    border-radius: 0.5em;
+    cursor: pointer;
+    font-size: 2em;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#spielen:hover {
+    background-color: #ff8888;
+}
