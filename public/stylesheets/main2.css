@@ -1,6 +1,61 @@
 
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<a class="navbar-brand" href="#">Toy Broker Ludo</a>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a class="btn btn-link ml-2" href="http://localhost:9000">Ruls</a>
+</li>
+<li class="nav-item">
+<div class="btn-group ml-2" role="group">
+<button class="btn btn-secondary" onclick="undo()"><i class="fas fa-undo"></i> Undo</button>
+<button class="btn btn-secondary" onclick="redo()"><i class="fas fa-redo"></i> Redo</button>
+</div>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                                                                Load
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="responseList"></div>
+</div>
+</li>
+</ul>
+<form class="form-inline my-2 my-lg-0">
+<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+<button class="btn btn-outline-success my-2 my-sm-0" onclick="saveGame()" type="submit">Save</button>
+</form>
+</div>
+</nav>
 
+                                                                                                                                                                                                                                                                                                                                                                                           .navbar {
+                                                                                                                                                                                                                                                                                                                                                                                               background-color: #a17933;
+                                                                                                                                                                                                                                                                                                                                                                                           }
+
+.navbar-brand {
+    color: #ffffff !important;
+    font-size: 1.5em;
+}
+
+.form-inline input,
+.form-inline button {
+    margin-right: 10px;
+    margin-top: 0.5em;
+}
+
+.dropdown {
+    margin-bottom: 5px;
+}
+
+.dropdown.show .dropdown-menu {
+    display: block;
+}
+
+.dropdown-indicator {
+    display: inline-block;
+    margin-left: 5px;
+}
 
 /* common ------------------------------------------------------------------ */
 body, html {

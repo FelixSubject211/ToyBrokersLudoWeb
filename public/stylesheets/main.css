@@ -152,12 +152,20 @@ body, html {
 /* navbar ------------------------------------------------------------------ */
 .navbar {
     background-color: orange;
-    display: flex;
 }
 
 .navbar-brand {
     color: #ffffff !important;
     font-size: 1.5em;
+}
+
+.navbar-nav .nav-item {
+    list-style: none;
+    padding: 8px;
+}
+
+.navbar-nav .nav-item:hover {
+    background-color: transparent;
 }
 
 .form-inline input,
@@ -166,12 +174,13 @@ body, html {
     margin-top: 0.5em;
 }
 
-.dropdown {
-    margin-bottom: 5px;
+.dropdown-menu li {
+    padding: 2px;
+    transition: background-color 0.3s;
 }
 
-.dropdown.show .dropdown-menu {
-    display: block;
+.dropdown-menu li:hover {
+    background-color: dodgerblue;
 }
 
 .dropdown-indicator {
@@ -191,6 +200,12 @@ li:hover {
     position: absolute;
     left: 50%;
     transform: translate(-50%);
+}
+
+h1 {
+    text-align: center;
+    font-family: "Copperplate", fantasy;
+    font-size: 3.5em;
 }
 
 #table1 {
