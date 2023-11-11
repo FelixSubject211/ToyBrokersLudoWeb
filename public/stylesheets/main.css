@@ -31,9 +31,10 @@ body, html {
     background-size: 150% 150%;
 }
 
+
 .token {
-    height: 5vh;
-    width: 5vh;
+    height: 5.5vh;
+    width: 5.5vh;
     text-align: center;
     font-weight: bold;
     user-select: none;
