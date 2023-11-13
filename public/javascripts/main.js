@@ -127,15 +127,19 @@ function fetchSaveGames() {
 }
 
 
-function sendRequest(method, url, payload, successCallback, errorCallback) {
-    let xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            successCallback(xhr.responseText);
-        } else {
-            errorCallback(xhr.status);
-        }
-    };
-    xhr.send(payload);
+function sendRequest(method, url, data, successCallback, errorCallback) {
+    fetch(url, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: data
+    }).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(successCallback)
+        .catch(errorCallback);
 }
