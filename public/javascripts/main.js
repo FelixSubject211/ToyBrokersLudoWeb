@@ -1,17 +1,17 @@
 
 
 function doDice() {
-    let xhr = new XMLHttpRequest();
-    let url = 'http://localhost:9000/game/dice';
-    xhr.open('GET', url, true);
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            location.reload()
-        } else {
-            console.error("error dice " + xhr.status);
+    sendRequest(
+        'GET',
+        'http://localhost:9000/game/dice',
+        null,
+        function() {
+            location.reload();
+        },
+        function(errorStatus) {
+            console.error("error dice " + errorStatus);
         }
-    };
-    xhr.send();
+    )
 }
 
 function doMove(tokenString) {
@@ -124,4 +124,18 @@ function fetchSaveGames() {
         }
     };
     xhr.send();
+}
+
+
+function sendRequest(method, url, payload, successCallback, errorCallback) {
+    let xhr = new XMLHttpRequest();
+    xhr.open(method, url, true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            successCallback(xhr.responseText);
+        } else {
+            errorCallback(xhr.status);
+        }
+    };
+    xhr.send(payload);
 }
