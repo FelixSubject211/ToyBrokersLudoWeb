@@ -44,7 +44,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     controller.getShouldDice match {
       case true => {
         controller.doAndPublish(controller.dice)
-        Ok(controller.getDice.toString)
+        Ok(Json.toJson(controller.getDice.toString))
       }
       case false => Conflict("Illegal state, player have to move")
     }
@@ -67,24 +67,24 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     controller.getPossibleMoves(controller.getDice).lift(index) match {
       case Some(move) =>
         controller.doAndPublish(controller.move, move)
-        Ok(move.toString)
+        Ok(Json.toJson(move.toString))
       case None => Conflict("Illegal move index")
     }
   }
 
   def undo() = Action { implicit request: Request[AnyContent] =>
     controller.doAndPublish(controller.undo)
-    Ok("success")
+    Ok(Json.toJson("success"))
   }
 
   def redo() = Action { implicit request: Request[AnyContent] =>
     controller.doAndPublish(controller.redo)
-    Ok("success")
+    Ok(Json.toJson("success"))
   }
 
   def save(path: String) = Action { implicit request: Request[AnyContent] =>
     controller.save(path)
-    Ok("success")
+    Ok(Json.toJson("success"))
   }
 
   def getSaveGames() = Action { implicit request: Request[AnyContent] =>
@@ -93,6 +93,6 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
 
   def load(path: String) = Action { implicit request: Request[AnyContent] =>
     controller.load(path)
-    Ok("success")
+    Ok(Json.toJson("success"))
   }
 }
