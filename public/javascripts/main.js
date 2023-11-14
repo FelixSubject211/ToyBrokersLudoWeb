@@ -1,17 +1,17 @@
 
 
 function doDice() {
-    let xhr = new XMLHttpRequest();
-    let url = 'http://localhost:9000/game/dice';
-    xhr.open('GET', url, true);
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            location.reload()
-        } else {
-            console.error("error dice " + xhr.status);
+    sendRequest(
+        'GET',
+        'http://localhost:9000/game/dice',
+        null,
+        function() {
+            location.reload();
+        },
+        function(errorStatus) {
+            console.error("error dice " + errorStatus);
         }
-    };
-    xhr.send();
+    )
 }
 
 function doMove(tokenString) {
@@ -20,9 +20,11 @@ function doMove(tokenString) {
     xhr.onload = function () {
         if (xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
-            let index = response.indexOf(tokenString)
+            let index = response.findIndex(item => item === tokenString);
             if (index !== -1) {
-
+                doIndexMove(index)
+            } else {
+                console.log('index = -1')
             }
         } else {
             console.error('error so move : ' + xhr.status);
@@ -33,7 +35,7 @@ function doMove(tokenString) {
 
 function doIndexMove(index) {
     let xhr = new XMLHttpRequest();
-    let url = 'http://localhost:9000/move/' + index;
+    let url = 'http://localhost:9000/game/move/' + index;
     xhr.open('GET', url, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -73,9 +75,9 @@ function redo() {
     xhr.send(JSON.stringify(''));
 }
 
-function saveGame(input) {
+function saveGame() {
     let xhr = new XMLHttpRequest();
-    let url = 'http://localhost:9000/game/save/' + input;
+    let url = 'http://localhost:9000/game/save/' + document.getElementById('textField').value;
     xhr.open('GET', url, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -122,4 +124,22 @@ function fetchSaveGames() {
         }
     };
     xhr.send();
+}
+
+
+function sendRequest(method, url, data, successCallback, errorCallback) {
+    fetch(url, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: data
+    }).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(successCallback)
+        .catch(errorCallback);
 }

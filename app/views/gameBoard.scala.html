@@ -43,19 +43,19 @@
 
         greenPlayers.forEach(player => {
             player.addEventListener('click', function() {
-                doMove('G'.concat(player.textContent))
+                doMove('G'.concat(player.textContent.trim()))
             });
         });
 
         redPlayers.forEach(player => {
             player.addEventListener('click', function() {
-                doMove('R'.concat(player.textContent))
+                doMove('R'.concat(player.textContent.trim()))
             });
         });
 
         bluePlayers.forEach(player => {
             player.addEventListener('click', function() {
-                doMove('B'.concat(player.textContent))
+                doMove('B'.concat(player.textContent.trim()))
             });
         });
 
