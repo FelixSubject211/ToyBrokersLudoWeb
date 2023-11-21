@@ -6,78 +6,99 @@ function doDice() {
         'http://localhost:9000/game/dice',
         function(responseData) {
             let dice = document.getElementById('dice')
+            dice.style.animation = 'roll 0.5s ease-in-out'
+            setTimeout(() => {
+                setDice((Math.floor(Math.random() * 6) + 1).toString())
+            }, 100);
 
-            let newDiceHTML = "";
+            setTimeout(() => {
+                setDice((Math.floor(Math.random() * 6) + 1).toString())
+            }, 150);
 
-            switch (responseData) {
-                case "1":
-                    newDiceHTML = `<div class="dice first-face">
-                                        <span class="dot"></span>
-                                   </div>`;
-                    break;
-                case "2":
-                    newDiceHTML = `<div class="dice second-face">
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                    </div>`;
-                    break;
-                case "3":
-                    newDiceHTML = `<div class="dice third-face">
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                    </div>`;
-                    break;
-                case "4":
-                    newDiceHTML = `<div class="dice fourth-face">
-                                       <div class="column">
-                                           <span class="dot"></span>
-                                           <span class="dot"></span>
-                                       </div>
-                                       <div class="column">
-                                           <span class="dot"></span>
-                                           <span class="dot"></span>
-                                       </div>
-                                   </div>`;
-                    break;
-                case "5":
-                    newDiceHTML = `<div class="dice fifth-face">
-                                        <div class="column">
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                        </div>
-                                        <div class="column">
-                                            <span class="dot"></span>
-                                        </div>
-                                        <div class="column">
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                        </div>
-                                    </div>`;
-                    break;
-                case "6":
-                    newDiceHTML = `<div class="dice sixth-face">
-                                        <div class="column">
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                        </div>
-                                        <div class="column">
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                        </div>
-                                    </div>`;
-                    break;
-                default:
-                    newDiceHTML = `<div>Unbekannter Würfelwert: ${responseData}</div>`;
-                    break;
-            }
+            setTimeout(() => {
+                setDice((Math.floor(Math.random() * 6) + 1).toString())
+            }, 300);
 
-            dice.innerHTML = newDiceHTML;
-            reloadSnackbar()
+            setTimeout(() => {
+                dice.style.animation = null
+                setDice(responseData)
+                reloadSnackbar()
+            }, 500);
         }
     );
+}
+
+function setDice(diceNumber) {
+    let dice = document.getElementById('dice')
+
+    let newDiceHTML = "";
+
+    switch (diceNumber) {
+        case "1":
+            newDiceHTML = `<div class="dice first-face">
+                                        <span class="dot"></span>
+                                   </div>`;
+            break;
+        case "2":
+            newDiceHTML = `<div class="dice second-face">
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </div>`;
+            break;
+        case "3":
+            newDiceHTML = `<div class="dice third-face">
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </div>`;
+            break;
+        case "4":
+            newDiceHTML = `<div class="dice fourth-face">
+                                       <div class="column">
+                                           <span class="dot"></span>
+                                           <span class="dot"></span>
+                                       </div>
+                                       <div class="column">
+                                           <span class="dot"></span>
+                                           <span class="dot"></span>
+                                       </div>
+                                   </div>`;
+            break;
+        case "5":
+            newDiceHTML = `<div class="dice fifth-face">
+                                        <div class="column">
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <div class="column">
+                                            <span class="dot"></span>
+                                        </div>
+                                        <div class="column">
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                    </div>`;
+            break;
+        case "6":
+            newDiceHTML = `<div class="dice sixth-face">
+                                        <div class="column">
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <div class="column">
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                    </div>`;
+            break;
+        default:
+            newDiceHTML = `<div>Unbekannter Würfelwert: ${diceNumber}</div>`;
+            break;
+    }
+
+    dice.innerHTML = newDiceHTML;
 }
 
 function reloadSnackbar() {
