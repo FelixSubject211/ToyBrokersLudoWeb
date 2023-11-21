@@ -4,8 +4,89 @@ function doDice() {
     sendRequest(
         'PATCH',
         'http://localhost:9000/game/dice',
-        function() {
-            location.reload();
+        function(responseData) {
+            let dice = document.getElementById('dice')
+
+            let newDiceHTML = "";
+
+            switch (responseData) {
+                case "1":
+                    newDiceHTML = `<div class="dice first-face">
+                                        <span class="dot"></span>
+                                   </div>`;
+                    break;
+                case "2":
+                    newDiceHTML = `<div class="dice second-face">
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </div>`;
+                    break;
+                case "3":
+                    newDiceHTML = `<div class="dice third-face">
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </div>`;
+                    break;
+                case "4":
+                    newDiceHTML = `<div class="dice fourth-face">
+                                       <div class="column">
+                                           <span class="dot"></span>
+                                           <span class="dot"></span>
+                                       </div>
+                                       <div class="column">
+                                           <span class="dot"></span>
+                                           <span class="dot"></span>
+                                       </div>
+                                   </div>`;
+                    break;
+                case "5":
+                    newDiceHTML = `<div class="dice fifth-face">
+                                        <div class="column">
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <div class="column">
+                                            <span class="dot"></span>
+                                        </div>
+                                        <div class="column">
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                    </div>`;
+                    break;
+                case "6":
+                    newDiceHTML = `<div class="dice sixth-face">
+                                        <div class="column">
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <div class="column">
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                    </div>`;
+                    break;
+                default:
+                    newDiceHTML = `<div>Unbekannter Würfelwert: ${responseData}</div>`;
+                    break;
+            }
+
+            dice.innerHTML = newDiceHTML;
+            reloadSnackbar()
+        }
+    );
+}
+
+function reloadSnackbar() {
+    sendRequest(
+        'GET',
+        'http://localhost:9000/game/reloadSnackbar',
+        function(responseData) {
+            let snackbar = document.getElementById('snackbar')
+            snackbar.textContent = responseData
         }
     );
 }

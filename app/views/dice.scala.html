@@ -65,6 +65,11 @@
         let dice = document.getElementById('dice');
 
         dice.addEventListener('click', function () {
-            doDice()
+            dice.style.animation = 'roll 0.5s ease-in-out'
+
+            setTimeout(() => {
+               doDice()
+               dice.style.animation = null
+            }, 500);
         });
 </script>

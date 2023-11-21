@@ -50,6 +50,15 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     }
   }
 
+  def reloadSnackbar() = Action { implicit request: Request[AnyContent] =>
+    Ok(Json.toJson(
+        controller.getPlayer.toString.concat(controller.getShouldDice match {
+          case true => " have to dice"
+          case false => " have to move"
+        })
+      ))
+  }
+
   def getPossibleMoves() = Action { implicit request: Request[AnyContent] =>
     Json.toJson(controller.getTargets())
     controller.getShouldDice match {
