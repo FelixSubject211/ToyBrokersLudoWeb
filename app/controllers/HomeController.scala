@@ -2,9 +2,10 @@ package controllers
 
 import de.htwg.se.toybrokersludo.aview.TUI
 import de.htwg.se.toybrokersludo.controller.Controller
-import de.htwg.se.toybrokersludo.model.FieldBaseImpl.Field
+import de.htwg.se.toybrokersludo.model.FieldBaseImpl.{Field, Matrix}
 import de.htwg.se.toybrokersludo.model.FileIO.JsonImpl.FileIo
-import play.api.libs.json.Json
+import de.htwg.se.toybrokersludo.model.{Stone, Token}
+import play.api.libs.json.{JsValue, Json, Writes}
 import play.api.mvc._
 import play.twirl.api.Html
 
@@ -59,6 +60,30 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
       ))
   }
 
+  def reloadGame() = Action { implicit request: Request[AnyContent] =>
+    Ok(Json.toJson(
+      controller.getMatrix.getMap.map(list => list.map(stone =>
+         stone.token match {
+           case None =>
+             Json.obj(
+               "isAPlayField" -> stone.isAPlayField,
+               "token" -> null,
+               "index" -> stone.index
+             )
+           case Some(token: Token) =>
+             Json.obj(
+               "isAPlayField" -> stone.isAPlayField,
+               "token" -> Json.obj(
+                 "color" -> token.getColor(),
+                 "number" -> token.getNumber(),
+                 "index" -> stone.index
+               )
+             )
+         }
+      ))
+    ))
+  }
+
   def getPossibleMoves() = Action { implicit request: Request[AnyContent] =>
     Json.toJson(controller.getTargets())
     controller.getShouldDice match {
@@ -105,3 +130,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     Ok(Json.toJson("success"))
   }
 }
+
+
+
+

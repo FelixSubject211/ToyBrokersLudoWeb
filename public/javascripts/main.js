@@ -112,6 +112,112 @@ function reloadSnackbar() {
     );
 }
 
+function reloadGame() {
+    sendRequest(
+        'GET',
+        'http://localhost:9000/game/reloadGame',
+        function(responseData) {
+            let gameTable = document.getElementById('game')
+            gameTable.innerHTML = jsonToHtmlGame(responseData)
+
+            const cells = document.querySelectorAll('.green-player, .red-player, .blue-player, .yellow-player');
+            const greenPlayers = document.querySelectorAll('.green-player')
+            const redPlayers = document.querySelectorAll('.red-player')
+            const bluePlayers = document.querySelectorAll('.blue-player')
+            const yellowPlayers = document.querySelectorAll('.yellow-player')
+
+            greenPlayers.forEach(player => {
+                player.addEventListener('click', function() {
+                    doMove('G'.concat(player.textContent.trim()))
+                });
+            });
+
+            redPlayers.forEach(player => {
+                player.addEventListener('click', function() {
+                    doMove('R'.concat(player.textContent.trim()))
+                });
+            });
+
+            bluePlayers.forEach(player => {
+                player.addEventListener('click', function() {
+                    doMove('B'.concat(player.textContent.trim()))
+                });
+            });
+
+            yellowPlayers.forEach(player => {
+                player.addEventListener('click', function() {
+                    doMove('Y'.concat(player.textContent.trim()))
+                });
+            });
+
+            cells.forEach(cell => {
+                cell.addEventListener('mousedown', function() {
+                    cell.style.animation = 'bounce 0.5s ease-in-out'
+                });
+
+                cell.addEventListener('mouseup', function() {
+                    setTimeout(() => {
+                        cell.style.animation = null;
+                    }, 1000);
+                });
+            });
+        }
+    );
+}
+
+function jsonToHtmlGame(jsonData) {
+    let html = '<table border="1">';
+    for (let i = 0; i < jsonData.length; i++) {
+        html += '<tr>';
+        for (let j = 0; j < jsonData[i].length; j++) {
+            const stone = jsonData[i][j];
+            if (stone.isAPlayField) {
+                if (stone.token !== null) {
+                    html += jsonToHtmlToken(stone.token);
+                } else {
+                    html += jsonToPlayField(stone)
+                }
+                html += '</td>';
+            } else {
+                html += '<td class="token"></td>';
+            }
+        }
+        html += '</tr>';
+    }
+    html += '</table>';
+    return html;
+}
+
+function jsonToPlayField(stone) {
+    if ([70, 71, 72, 73].includes(stone.index)) {
+        return `<td class="token green-end-field"></td>`;
+    } else if ([74, 75, 76, 77].includes(stone.index)) {
+        return `<td class="token red-end-field"></td>`;
+    } else if ([78, 79, 80, 81].includes(stone.index)) {
+        return `<td class="token blue-end-field"></td>`;
+    } else if ([82, 83, 84, 85].includes(stone.index)) {
+        return `<td class="token yellow-end-field"></td>`;
+    } else {
+        return `<td class="token empty-field"></td>`;
+    }
+}
+
+
+function jsonToHtmlToken(token) {
+    if (token !== null) {
+        switch (token.color) {
+            case "G":
+                return `<td class="token green-player">${token.number}</td>`;
+            case "R":
+                return `<td class="token red-player">${token.number}</td>`;
+            case "B":
+                return `<td class="token blue-player">${token.number}</td>`;
+            case "Y":
+                return `<td class="token yellow-player">${token.number}</td>`;
+        }
+    }
+}
+
 
 function doMove(tokenString) {
     sendRequest(
@@ -133,7 +239,8 @@ function doIndexMove(index) {
         'PATCH',
         'http://localhost:9000/game/move/' + index,
         function() {
-            location.reload()
+            reloadGame()
+            reloadSnackbar()
         }
     );
 }
@@ -163,7 +270,7 @@ function saveGame() {
         'PATCH',
         'http://localhost:9000/game/save/' + document.getElementById('textField').value,
         function() {
-            location.reload()
+            fetchSaveGames()
         }
     );
 }

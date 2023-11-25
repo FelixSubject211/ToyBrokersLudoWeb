@@ -1,6 +1,6 @@
 @(matrix: de.htwg.se.toybrokersludo.model.FieldBaseImpl.Matrix)
 
-<table class="game-table">
+<table class="game-table", id="game">
     @for(rowList <- matrix.map) {
         <tr>
         @for(cell <- rowList) {
