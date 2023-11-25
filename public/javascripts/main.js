@@ -270,7 +270,7 @@ function saveGame() {
         'PATCH',
         'http://localhost:9000/game/save/' + document.getElementById('textField').value,
         function() {
-            fetchSaveGames()
+            location.reload()
         }
     );
 }
