@@ -1,15 +1,19 @@
 package controllers
 
+import akka.actor.{Actor, ActorRef}
 import de.htwg.se.toybrokersludo.aview.TUI
 import de.htwg.se.toybrokersludo.controller.Controller
 import de.htwg.se.toybrokersludo.model.FieldBaseImpl.{Field, Matrix}
 import de.htwg.se.toybrokersludo.model.FileIO.JsonImpl.FileIo
 import de.htwg.se.toybrokersludo.model.{Stone, Token}
+import play.api.Play.materializer
 import play.api.libs.json.{JsValue, Json, Writes}
+import play.api.libs.streams.ActorFlow
 import play.api.mvc._
-import play.twirl.api.Html
 
 import javax.inject._
+import scala.swing.Reactor
+import scala.swing.event.Key.Props
 
 @Singleton
 class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
@@ -18,6 +22,8 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   private val fileIO = FileIo()
   private val controller = new Controller(field, fileIO)
   new TUI(controller)
+
+  private val publisher = new ControllerPublisher()
 
   def game() = Action { implicit request: Request[AnyContent] =>
     val gameBoard = views.html.gameBoard(matrix = controller.getMatrix)
@@ -129,7 +135,24 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     controller.load(path)
     Ok(Json.toJson("success"))
   }
+
+  def socket = WebSocket.accept[String, String] { request =>
+    ActorFlow.actorRef { out =>
+      println("Connect received")
+    }
+  }
+
+  private class SudokuWebSocketActor(out: ActorRef) extends Actor with Reactor {
+    listenTo(publisher)
+
+    def receive = {
+      case msg: String =>
+        out ! (msg)
+        println("Sent Json to Client" + msg)
+    }
+  }
 }
+
 
 
 
