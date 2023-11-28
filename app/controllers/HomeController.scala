@@ -7,17 +7,22 @@ import de.htwg.se.toybrokersludo.model.FileIO.JsonImpl.FileIo
 import de.htwg.se.toybrokersludo.model.{Stone, Token}
 import play.api.libs.json.{JsValue, Json, Writes}
 import play.api.mvc._
-import play.twirl.api.Html
-
 import javax.inject._
 
+import akka.actor._
+import play.api.libs.streams.ActorFlow
+import scala.swing.Reactor
+
+
 @Singleton
-class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class HomeController @Inject()(val controllerComponents: ControllerComponents, implicit val system: ActorSystem) extends BaseController {
 
   private val field = Field()
   private val fileIO = FileIo()
   private val controller = new Controller(field, fileIO)
   new TUI(controller)
+
+  private val publisher = new ControllerPublisher()
 
   def game() = Action { implicit request: Request[AnyContent] =>
     val gameBoard = views.html.gameBoard(matrix = controller.getMatrix)
@@ -45,6 +50,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     controller.getShouldDice match {
       case true => {
         controller.doAndPublish(controller.dice)
+        publisher.push(event = new ReloadAll())
         Ok(Json.toJson(controller.getDice.toString))
       }
       case false => Conflict("Illegal state, player have to move")
@@ -58,6 +64,10 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
           case false => " have to move"
         })
       ))
+  }
+
+  def reloadDice() = Action { implicit request: Request[AnyContent] =>
+    Ok(Json.toJson(controller.getDice))
   }
 
   def reloadGame() = Action { implicit request: Request[AnyContent] =>
@@ -101,6 +111,8 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     controller.getPossibleMoves(controller.getDice).lift(index) match {
       case Some(move) =>
         controller.doAndPublish(controller.move, move)
+        publisher.push(event = new ReloadGame)
+        publisher.push(event = new ReloadDice)
         Ok(Json.toJson(move.toString))
       case None => Conflict("Illegal move index")
     }
@@ -108,16 +120,19 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
 
   def undo() = Action { implicit request: Request[AnyContent] =>
     controller.doAndPublish(controller.undo)
+    publisher.push(event = new ReloadAll)
     Ok(Json.toJson("success"))
   }
 
   def redo() = Action { implicit request: Request[AnyContent] =>
     controller.doAndPublish(controller.redo)
+    publisher.push(event = new ReloadAll)
     Ok(Json.toJson("success"))
   }
 
   def save(path: String) = Action { implicit request: Request[AnyContent] =>
     controller.save(path)
+    publisher.push(event = new ReloadAll)
     Ok(Json.toJson("success"))
   }
 
@@ -127,9 +142,37 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
 
   def load(path: String) = Action { implicit request: Request[AnyContent] =>
     controller.load(path)
+    publisher.push(event = new ReloadAll)
     Ok(Json.toJson("success"))
   }
+
+  def socket = WebSocket.accept[String, String] { request: RequestHeader =>
+    println(request)
+    ActorFlow.actorRef(out => ActorFactory.create(out))
+  }
+
+  object ActorFactory {
+    def create(out: ActorRef) = {
+      Props(new MyActor(out))
+    }
+  }
+
+  class MyActor(out: ActorRef) extends Actor with Reactor {
+    listenTo(publisher)
+    def receive = {
+      case msg: String =>
+        out ! ("I received your message: " + msg)
+    }
+
+    reactions += {
+      case event: ReloadAll => out ! ("reloadAll")
+      case event: ReloadGame => out ! ("reloadGame")
+      case event: ReloadDice => out ! ("reloadDice")
+      case event: ReloadSnackbar => out ! ("reloadSnackbar")
+    }
+  }
 }
+
 
 
 
