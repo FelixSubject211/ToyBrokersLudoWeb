@@ -2,9 +2,10 @@ package controllers
 
 import de.htwg.se.toybrokersludo.aview.TUI
 import de.htwg.se.toybrokersludo.controller.Controller
-import de.htwg.se.toybrokersludo.model.FieldBaseImpl.Field
+import de.htwg.se.toybrokersludo.model.FieldBaseImpl.{Field, Matrix}
 import de.htwg.se.toybrokersludo.model.FileIO.JsonImpl.FileIo
-import play.api.libs.json.Json
+import de.htwg.se.toybrokersludo.model.{Stone, Token}
+import play.api.libs.json.{JsValue, Json, Writes}
 import play.api.mvc._
 import play.twirl.api.Html
 
@@ -48,6 +49,39 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
       }
       case false => Conflict("Illegal state, player have to move")
     }
+  }
+
+  def reloadSnackbar() = Action { implicit request: Request[AnyContent] =>
+    Ok(Json.toJson(
+        controller.getPlayer.toString.concat(controller.getShouldDice match {
+          case true => " have to dice"
+          case false => " have to move"
+        })
+      ))
+  }
+
+  def reloadGame() = Action { implicit request: Request[AnyContent] =>
+    Ok(Json.toJson(
+      controller.getMatrix.getMap.map(list => list.map(stone =>
+         stone.token match {
+           case None =>
+             Json.obj(
+               "isAPlayField" -> stone.isAPlayField,
+               "token" -> null,
+               "index" -> stone.index
+             )
+           case Some(token: Token) =>
+             Json.obj(
+               "isAPlayField" -> stone.isAPlayField,
+               "token" -> Json.obj(
+                 "color" -> token.getColor(),
+                 "number" -> token.getNumber(),
+                 "index" -> stone.index
+               )
+             )
+         }
+      ))
+    ))
   }
 
   def getPossibleMoves() = Action { implicit request: Request[AnyContent] =>
@@ -96,3 +130,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     Ok(Json.toJson("success"))
   }
 }
+
+
+
+

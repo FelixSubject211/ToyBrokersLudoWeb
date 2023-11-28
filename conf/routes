@@ -7,6 +7,8 @@
 GET     /                             controllers.HomeController.welcome()
 GET     /game                         controllers.HomeController.game()
 GET     /game/possibleMoves           controllers.HomeController.getPossibleMoves()
+GET     /game/reloadSnackbar          controllers.HomeController.reloadSnackbar()
+GET     /game/reloadGame              controllers.HomeController.reloadGame()
 GET     /game/saveGames               controllers.HomeController.getSaveGames()
 PATCH   /game/dice                    controllers.HomeController.dice()
 PATCH   /game/move/:index             controllers.HomeController.move(index: Int)
