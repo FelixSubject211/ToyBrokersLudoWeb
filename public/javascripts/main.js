@@ -1,4 +1,31 @@
 
+function connect() {
+    console.log('start')
+    $.ajax({
+      type : 'get',
+      url : '/game/reloadGame',
+      dataType : 'json',
+      success : function(response) {
+        console.log('success')
+        //timestamp = response.timestamp;
+        reloadGame()
+        noerror = true;
+      },
+      complete : function(response) {
+        console.log('new connect')
+        // send a new ajax request when this request is finished
+        if (!self.noerror) {
+          // if a connection problem occurs, try to reconnect each 5 seconds
+          setTimeout(function(){ connect(); }, 5000);
+        }else {
+          // persistent connection
+          connect();
+        }
+        noerror = false;
+      }
+    });
+  }
+
 
 function doDice() {
     sendRequest(
