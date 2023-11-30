@@ -260,7 +260,9 @@ function undo() {
         'PATCH',
         'http://localhost:9000/game/undo',
         function() {
-            location.reload()
+            reloadGame()
+            reloadDice()
+            reloadSnackbar()
         }
     );
 }
@@ -270,7 +272,9 @@ function redo() {
         'PATCH',
         'http://localhost:9000/game/redo',
         function() {
-            location.reload()
+            reloadGame()
+            reloadDice()
+            reloadSnackbar()
         }
     );
 }
