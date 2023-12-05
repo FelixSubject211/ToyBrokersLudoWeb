@@ -112,6 +112,16 @@ function reloadSnackbar() {
     );
 }
 
+function reloadDice() {
+    sendRequest(
+        'GET',
+        'http://localhost:9000/game/reloadDice',
+        function(responseData) {
+            setDice(responseData.toString())
+        }
+    );
+}
+
 function reloadGame() {
     sendRequest(
         'GET',
@@ -250,7 +260,9 @@ function undo() {
         'PATCH',
         'http://localhost:9000/game/undo',
         function() {
-            location.reload()
+            reloadGame()
+            reloadDice()
+            reloadSnackbar()
         }
     );
 }
@@ -260,7 +272,9 @@ function redo() {
         'PATCH',
         'http://localhost:9000/game/redo',
         function() {
-            location.reload()
+            reloadGame()
+            reloadDice()
+            reloadSnackbar()
         }
     );
 }
@@ -330,4 +344,36 @@ function sendRequest(method, url, successCallback, data = null, errorCallback = 
     }).catch(error => {
         errorCallback(error);
     });
+}
+
+function connectWebSocket() {
+    var websocket = new WebSocket("ws://localhost:9000/websocket");
+    websocket.setTimeout
+
+    websocket.onopen = function(event) {
+        console.log("Connected to Websocket");
+    }
+
+    websocket.onclose = function () {
+        console.log('Connection with Websocket Closed!');
+    };
+
+    websocket.onerror = function (error) {
+        console.log('Error in Websocket Occured: ' + error);
+    };
+
+    websocket.onmessage = function (e) {
+        switch (e.data) {
+            case "reloadAll": {
+                reloadGame()
+                reloadSnackbar()
+                reloadDice()
+                break;
+            }
+            case "reloadGame": reloadGame(); break;
+            case "reloadSnackbar": reloadSnackbar(); break;
+            case "reloadDice": reloadDice(); break;
+            default: alert("non event massage " + e.data)
+        }
+    };
 }

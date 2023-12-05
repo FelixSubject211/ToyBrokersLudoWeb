@@ -8,6 +8,7 @@ GET     /                             controllers.HomeController.welcome()
 GET     /game                         controllers.HomeController.game()
 GET     /game/possibleMoves           controllers.HomeController.getPossibleMoves()
 GET     /game/reloadSnackbar          controllers.HomeController.reloadSnackbar()
+GET     /game/reloadDice               controllers.HomeController.reloadDice()
 GET     /game/reloadGame              controllers.HomeController.reloadGame()
 GET     /game/saveGames               controllers.HomeController.getSaveGames()
 PATCH   /game/dice                    controllers.HomeController.dice()
@@ -16,6 +17,8 @@ PATCH   /game/undo                    controllers.HomeController.undo()
 PATCH   /game/redo                    controllers.HomeController.redo()
 PATCH   /game/load/:path              controllers.HomeController.load(path: String)
 PATCH   /game/save/:path              controllers.HomeController.save(path: String)
+
+GET     /websocket                    controllers.HomeController.socket
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
