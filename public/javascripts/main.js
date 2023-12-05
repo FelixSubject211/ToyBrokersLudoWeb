@@ -3,10 +3,10 @@ function connect() {
     console.log('start')
     $.ajax({
       type : 'get',
-      url : '/game/reloadGame',
-      dataType : 'json',
+      url : '/comet',
       success : function(response) {
         console.log('success')
+        console.log(response)
         //timestamp = response.timestamp;
         reloadGame()
         noerror = true;
