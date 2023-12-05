@@ -1,22 +1,53 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref, defineEmits } from 'vue';
 
 const diceResult = ref(6);
 
-const rollDice = async () => {
+const reloadDice = async () => {
   try {
-    const response = await fetch('http://localhost:9000/game/dice', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: {},
-    });
-    alert(response)
+    const response = await fetch('http://localhost:9000/game/reloadDice');
+    if (response.ok) {
+      const data = await response.json();
+      diceResult.value = data;
+    } else {
+      throw new Error('Fehler beim Laden des Würfelergebnisses');
+    }
   } catch (error) {
-    alert(error)
+    alert(error);
   }
 };
+
+const rollDice = async () => {
+  try {
+    const response = await fetch('http://localhost:9000/game/dice', { method: 'PATCH' });
+    if (response.ok) {
+      setTimeout(() => {
+        diceResult.value = Math.floor(Math.random() * 6) + 1
+      }, 100);
+
+      setTimeout(() => {
+        diceResult.value = Math.floor(Math.random() * 6) + 1
+      }, 150);
+
+      setTimeout(() => {
+        diceResult.value = Math.floor(Math.random() * 6) + 1
+      }, 300);
+
+      setTimeout(() => {
+        reloadDice()
+      }, 500);
+    } else {
+      alert('Du darfst gerade nicht Würfeln')
+    }
+  } catch (error) {
+    alert(error);
+  }
+};
+
+onMounted(() => {
+    reloadDice()
+});
+
 </script>
 
 <template>
@@ -86,6 +117,7 @@ const rollDice = async () => {
 </template>
 
 <style scoped>
+
 .dice {
   padding: 4px;
   background-color: tomato;
