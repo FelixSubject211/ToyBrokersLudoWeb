@@ -15,19 +15,6 @@ interface Stone {
   index: number
 }
 
-const stone1: Stone = {
-  isAPlayField: true,
-  token: null,
-  index: 1
-};
-
-const stone2: Stone = {
-  isAPlayField: false,
-  token: null,
-  index: 2
-};
-
-
 const reloadGame = async () => {
   try {
     const response = await fetch('http://localhost:9000/game/reloadGame');
@@ -42,9 +29,39 @@ const reloadGame = async () => {
   }
 };
 
-const model = ref<Stone[][]>(
-    [[stone1, stone2]]
-);
+const handleTokenClick  = async (token: Token) => {
+  try {
+    const response = await fetch('http://localhost:9000/game/possibleMoves');
+    if (response.ok) {
+      let responseJson: [string] = await response.json()
+      let index = responseJson.findIndex(item => item === token.color + token.number )
+      if (index !== -1) {
+        await doMove(index)
+      } else {
+        throw new Error('Illegal move');
+      }
+    } else {
+      throw new Error('Cant move');
+    }
+  } catch (error) {
+    alert(error);
+  }
+};
+
+const doMove = async (index) => {
+  try {
+    const response = await fetch('http://localhost:9000/game/move/' + index, { method: 'PATCH' });
+    if (response.ok) {
+      emitter.emit('reload game')
+    } else {
+      throw new Error('Cant move');
+    }
+  } catch (error) {
+    alert(error);
+  }
+};
+
+const model = ref<Stone[][]>();
 
 onMounted(() => {
   reloadGame()
@@ -60,7 +77,7 @@ onMounted(() => {
     <tr v-for="(row, rowIndex) in model" :key="rowIndex">
       <td v-for="(stone, stoneIndex) in row" :key="stoneIndex" class="stone">
         <p v-if="stone.isAPlayField">
-          <p v-if="stone.token != null">
+          <p v-if="stone.token != null" @click="handleTokenClick(stone.token)">
             <p v-if="stone.token.color == 'G'"><div class="token green-player">{{stone.token.number}}</div></p>
             <p v-else-if="stone.token.color == 'R'"><div class="token red-player">{{stone.token.number}}</div></p>
             <p v-else-if="stone.token.color == 'B'"><div class="token blue-player">{{stone.token.number}}</div></p>
@@ -97,6 +114,11 @@ onMounted(() => {
   font-weight: bold;
   user-select: none;
   border-radius: 3em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 5.5vh;
 }
 
 .green-player {
