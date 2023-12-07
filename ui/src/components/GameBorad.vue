@@ -59,10 +59,15 @@ onMounted(() => {
     <tr v-for="(row, rowIndex) in model" :key="rowIndex">
       <td v-for="(stone, stoneIndex) in row" :key="stoneIndex" class="stone">
         <p v-if="stone.isAPlayField">
-          {{ stone.token ? `Token Color: ${stone.token.color}, Number: ${stone.token.number}` : 'No token' }}
-        </p>
-        <p v-else>
-          `<div class="token empty-field"></div>`
+          <p v-if="stone.token != null">
+            <p v-if="stone.token.color == 'G'">
+              <div class="token green-player"></div>`
+            </p>
+            <div class="token green-player"></div>`
+          </p>
+          <p v-else>
+            `<div class="token empty-field"></div>`
+          </p>
         </p>
       </td>
     </tr>
