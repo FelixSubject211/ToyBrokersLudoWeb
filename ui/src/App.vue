@@ -1,11 +1,11 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
 import Dice from './components/Dice.vue'
 import Snackbar from './components/Snackbar.vue'
 import GameBorad from "@/components/GameBorad.vue";
+import Navbar from "@/components/Navbar.vue";
 </script>
 <template>
+  <Navbar />
   <header>
     <div class="wrapper">
       <GameBorad />
@@ -13,9 +13,12 @@ import GameBorad from "@/components/GameBorad.vue";
   </header>
 
   <main>
-    <Dice />
-
-    <Snackbar />
+    <div style="padding: 1em">
+      <Snackbar />
+    </div>
+    <div style="padding: 1em">
+      <Dice />
+    </div>
   </main>
 </template>
 
@@ -40,7 +43,7 @@ header {
     margin: 0 2rem 0 0;
   }
 
-  header .wrapper {
+  .wrapper {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
