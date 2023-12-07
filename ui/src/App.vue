@@ -1,4 +1,6 @@
 <script setup>
+import HelloWorld from './components/HelloWorld.vue'
+import TheWelcome from './components/TheWelcome.vue'
 import Dice from './components/Dice.vue'
 import Snackbar from './components/Snackbar.vue'
 import GameBorad from "@/components/GameBorad.vue";

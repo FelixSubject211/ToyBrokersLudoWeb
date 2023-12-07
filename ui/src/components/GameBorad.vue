@@ -53,6 +53,7 @@ const doMove = async (index) => {
     const response = await fetch('http://localhost:9000/game/move/' + index, { method: 'PATCH' });
     if (response.ok) {
       emitter.emit('reload game')
+      emitter.emit('reload snackbar')
     } else {
       throw new Error('Cant move');
     }
@@ -119,6 +120,7 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   line-height: 5.5vh;
+  border: 2px solid black;
 }
 
 .green-player {

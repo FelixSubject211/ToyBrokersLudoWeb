@@ -38,6 +38,7 @@ const rollDice = async () => {
 
       setTimeout(() => {
         emitter.emit('reload dice');
+        emitter.emit('reload snackbar')
       }, 500);
     } else {
       alert('You cant dice now')
