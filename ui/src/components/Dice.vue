@@ -1,5 +1,8 @@
 <script setup>
 import { onMounted, ref, defineEmits } from 'vue';
+import { inject } from 'vue'
+
+const emitter = inject('emitter')
 
 const diceResult = ref(6);
 
@@ -34,10 +37,10 @@ const rollDice = async () => {
       }, 300);
 
       setTimeout(() => {
-        reloadDice()
+        emitter.emit('reload dice');
       }, 500);
     } else {
-      alert('Du darfst gerade nicht Würfeln')
+      alert('You cant dice now')
     }
   } catch (error) {
     alert(error);
@@ -45,7 +48,8 @@ const rollDice = async () => {
 };
 
 onMounted(() => {
-    reloadDice()
+  reloadDice()
+  emitter.on('reload dice', reloadDice)
 });
 
 </script>
