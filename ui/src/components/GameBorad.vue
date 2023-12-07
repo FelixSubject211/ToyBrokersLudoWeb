@@ -53,20 +53,25 @@ onMounted(() => {
 
 </script>
 
+
 <template>
-  <table>
+  <table class="game-table">
     <tbody>
     <tr v-for="(row, rowIndex) in model" :key="rowIndex">
       <td v-for="(stone, stoneIndex) in row" :key="stoneIndex" class="stone">
         <p v-if="stone.isAPlayField">
           <p v-if="stone.token != null">
-            <p v-if="stone.token.color == 'G'">
-              <div class="token green-player"></div>`
-            </p>
-            <div class="token green-player"></div>`
+            <p v-if="stone.token.color == 'G'"><div class="token green-player">{{stone.token.number}}</div></p>
+            <p v-else-if="stone.token.color == 'R'"><div class="token red-player">{{stone.token.number}}</div></p>
+            <p v-else-if="stone.token.color == 'B'"><div class="token blue-player">{{stone.token.number}}</div></p>
+            <p v-else-if="stone.token.color == 'Y'"><div class="token yellow-player">{{stone.token.number}}</div></p>
           </p>
           <p v-else>
-            `<div class="token empty-field"></div>`
+            <p v-if="[70, 71, 72, 73].indexOf(stone.index) != -1"><div class="token green-end-field"></div></p>
+            <p v-else-if="[74, 75, 76, 77].indexOf(stone.index) != -1"><div class="token red-end-field"></div></p>
+            <p v-else-if="[78, 79, 80, 81].indexOf(stone.index) != -1"><div class="token blue-end-field"></div></p>
+            <p v-else-if="[82, 83, 84, 85].indexOf(stone.index) != -1"><div class="token yellow-end-field"></div></p>
+            <p v-else><div class="token empty-field"></div></p>
           </p>
         </p>
       </td>
