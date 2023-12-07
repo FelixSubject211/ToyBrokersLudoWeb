@@ -72,5 +72,65 @@ onMounted(() => {
 
 <style scoped>
 
+.game-table {
+  padding: 1em;
+  animation: gradientBG 15s ease infinite;
+  border-radius: 20px;
+  background: linear-gradient(45deg, orange, moccasin);
+  background-size: 150% 150%;
+}
+
+.token {
+  height: 5.5vh;
+  width: 5.5vh;
+  text-align: center;
+  font-weight: bold;
+  user-select: none;
+  border-radius: 3em;
+}
+
+.green-player {
+  background-color: green;
+}
+
+.green-end-field {
+  background-color: green;
+}
+
+.red-player {
+  background-color: red;
+}
+
+.red-end-field {
+  background-color: red;
+}
+
+.blue-player {
+  background-color: blue;
+}
+
+.blue-end-field {
+  background-color: blue;
+}
+
+.yellow-player {
+  background-color: yellow;
+}
+
+.yellow-end-field {
+  background-color: yellow;
+}
+
+.green-player:hover,
+.red-player:hover,
+.blue-player:hover,
+.yellow-player:hover {
+  border-radius: 0.75em;
+}
+
+.empty-field {
+  background-color: darkgray;
+}
+
 </style>
 
