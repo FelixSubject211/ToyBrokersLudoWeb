@@ -3,10 +3,10 @@ import Dice from './components/Dice.vue'
 import Snackbar from './components/Snackbar.vue'
 import GameBorad from "@/components/GameBorad.vue";
 import Navbar from "@/components/Navbar.vue";
+
 </script>
 <template>
   <header>
-
     <div class="wrapper">
       <GameBorad />
     </div>
