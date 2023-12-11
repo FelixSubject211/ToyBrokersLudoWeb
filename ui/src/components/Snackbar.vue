@@ -12,7 +12,6 @@ const reloadSnackbar = async () => {
     if (response.ok) {
       const data = await response.json();
       snackbarResult.value = data;
-      emitter.emit('reload snackbar');
     } else {
       throw new Error('Fehler beim Laden der Snackbar');
     }
