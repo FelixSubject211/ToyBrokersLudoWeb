@@ -1,6 +1,10 @@
 <script setup>
-import { onMounted, ref, defineEmits } from 'vue';
+import { onMounted, ref } from 'vue';
 import { inject } from 'vue'
+import Card from 'primevue/card';
+import 'primevue/resources/themes/lara-light-green/theme.css'
+
+
 
 const emitter = inject('emitter')
 
@@ -28,7 +32,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    {{ snackbarResult }}
-  </div>
+  <Card>
+    <template #title></template>
+    <template #content>
+      <p class="m-0">
+        {{ snackbarResult }}
+      </p>
+    </template>
+  </Card>
 </template>

@@ -5,14 +5,17 @@ import GameBorad from "@/components/GameBorad.vue";
 import Navbar from "@/components/Navbar.vue";
 </script>
 <template>
-  <Navbar />
   <header>
+
     <div class="wrapper">
       <GameBorad />
     </div>
   </header>
 
   <main>
+    <div style="padding: 1em">
+      <Navbar />
+    </div>
     <div style="padding: 1em">
       <Snackbar />
     </div>
