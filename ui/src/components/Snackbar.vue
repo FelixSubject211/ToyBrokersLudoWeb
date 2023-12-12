@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { inject } from 'vue'
 import Card from 'primevue/card';
-import 'primevue/resources/themes/lara-light-green/theme.css'
+import 'primevue/resources/themes/lara-dark-blue/theme.css'
 
 
 

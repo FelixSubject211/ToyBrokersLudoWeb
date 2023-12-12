@@ -320,6 +320,8 @@ function fetchSaveGames() {
 
 
 
+
+
 function sendRequest(method, url, successCallback, data = null, errorCallback = (error) => {
     alert('Error : ' + error.message);
 }) {

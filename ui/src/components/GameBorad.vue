@@ -125,6 +125,7 @@ onMounted(() => {
 
 .green-player {
   background-color: green;
+  color: #181818;
 }
 
 .green-end-field {
@@ -149,6 +150,7 @@ onMounted(() => {
 
 .yellow-player {
   background-color: yellow;
+  color: #181818;
 }
 
 .yellow-end-field {

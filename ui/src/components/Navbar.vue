@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import {inject, ref, onMounted} from 'vue';
 
 import Toolbar from 'primevue/toolbar';
 import InputText from 'primevue/inputtext';
@@ -7,36 +7,123 @@ import Button from 'primevue/button';
 import Dropdown from 'primevue/dropdown';
 
 
+const emitter = inject('emitter')
 
-const selectedCity = ref();
-const cities = ref([
-  { name: 'New York', code: 'NY' },
-  { name: 'Rome', code: 'RM' },
-  { name: 'London', code: 'LDN' },
-  { name: 'Istanbul', code: 'IST' },
-  { name: 'Paris', code: 'PRS' }
+const saveGames = ref([
+  { name: 'New York' },
+  { name: 'Rome' },
+  { name: 'London' },
+  { name: 'Istanbul' },
+  { name: 'Paris' }
 ]);
+
+const searchText = ref('');
+
+const updateSearchText = (event) => {
+  searchText.value = event.target.value;
+};
+
+const handleUndo  = async () => {
+  try {
+    const response = await fetch('http://localhost:9000/game/undo', { method: 'PATCH' });
+    if (response.ok) {
+      emitter.emit('reload game')
+      emitter.emit('reload snackbar')
+      emitter.emit('reload dice')
+    } else {
+      throw new Error('Cant undo');
+    }
+  } catch (error) {
+    alert(error);
+  }
+};
+
+const handleRedo  = async () => {
+  try {
+    const response = await fetch('http://localhost:9000/game/redo', { method: 'PATCH' });
+    if (response.ok) {
+      emitter.emit('reload game')
+      emitter.emit('reload snackbar')
+      emitter.emit('reload dice')
+    } else {
+      throw new Error('Cant undo');
+    }
+  } catch (error) {
+    alert(error);
+  }
+};
+
+const saveGame  = async () => {
+  try {
+    const response = await fetch('http://localhost:9000/game/save/' + searchText.value, { method: 'PATCH' });
+    if (response.ok) {
+      searchText.value = ''
+      await loadSaveGameNames()
+    } else {
+      throw new Error('Cant save');
+    }
+  } catch (error) {
+    alert(error);
+  }
+};
+
+const loadSaveGameNames  = async () => {
+  try {
+    const response = await fetch('http://localhost:9000/game/saveGames');
+    if (response.ok) {
+      let data = JSON.parse(await response.text())
+      saveGames.value = []
+      for (let i = 0; i < data.length; i++) {
+        saveGames.value.push({ name: data[i] });
+      }
+
+    } else {
+      throw new Error('Cant save');
+    }
+  } catch (error) {
+    alert(error);
+  }
+};
+
+const loadGame = async (name) => {
+  try {
+    const response = await fetch('http://localhost:9000/game/load/' + name.value.name, { method: 'PATCH' });
+    if (response.ok) {
+      emitter.emit('reload game')
+      emitter.emit('reload snackbar')
+      emitter.emit('reload dice')
+    } else {
+      throw new Error('Cant load');
+    }
+  } catch (error) {
+    alert(error);
+  }
+};
+
+onMounted(loadSaveGameNames);
+
+
 </script>
 
 <template>
   <Toolbar>
     <template #start>
-      <Dropdown v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" class="w-full md:w-14rem" />
+      <Dropdown :options="saveGames" optionLabel="name" placeholder="Load Game" class="w-full md:w-14rem" @change="loadGame" />
       <span style="padding: 1em">
-        <Button label="Undo" class="mr-2" />
+        <Button @click="handleUndo" label="Undo" class="mr-2"/>
       </span>
-      <Button label="Redo" class="mr-2" />
+      <Button @click="handleRedo" label="Redo" class="mr-2" />
     </template>
 
     <template #center></template>
 
     <template #end>
-      <span class="p-input-icon-left">
+      <span>
             <i class="pi pi-search" />
-            <InputText placeholder="Search" />
+            <InputText v-model="searchText" placeholder="Name for Savegame" @input="updateSearchText" />
       </span>
       <div style="padding: 1em">
-        <Button label="Submit" />
+        <Button label="Save" @click="saveGame" />
       </div>
     </template>
   </Toolbar>
