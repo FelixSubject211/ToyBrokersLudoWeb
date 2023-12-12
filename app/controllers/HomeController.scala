@@ -24,21 +24,6 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents, i
 
   private val publisher = new ControllerPublisher()
 
-  def game() = Action { implicit request: Request[AnyContent] =>
-    val gameBoard = views.html.gameBoard(matrix = controller.getMatrix)
-    val menu = views.html.menu()
-    val dice = views.html.dice(dice = controller.getDice.toString)
-    Ok(views.html.main(title = "Toy Brokers Ludo")
-    (gameBoard = gameBoard)
-    (menu = menu)
-    (dice = dice)
-    (snackbar = snackbar(controller)))
-  }
-
-  def welcome() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.welcome(start = "Toy Brokers Ludo"))
-  }
-
   private def snackbar(controller: Controller): String = {
     controller.getPlayer.toString.concat(controller.getShouldDice match {
       case true => " have to dice"
