@@ -1,5 +1,13 @@
 @import 'base.css';
 
+h1 {
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-family: "Copperplate", fantasy;
+    font-size: 3.5em;
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
@@ -22,7 +30,7 @@ a,
 }
 
 @media (min-width: 1024px) {
-  body {
+  #game {
     display: flex;
     place-items: center;
   }
