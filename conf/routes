@@ -4,8 +4,6 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                             controllers.HomeController.welcome()
-GET     /game                         controllers.HomeController.game()
 GET     /game/possibleMoves           controllers.HomeController.getPossibleMoves()
 GET     /game/reloadSnackbar          controllers.HomeController.reloadSnackbar()
 GET     /game/reloadDice               controllers.HomeController.reloadDice()

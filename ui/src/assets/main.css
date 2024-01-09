@@ -6,11 +6,11 @@ body {
 }
 
 h1 {
-    color: white;
+    color: black;
     font-weight: bold;
     text-align: center;
     font-family: "Copperplate", fantasy;
-    font-size: 3.5em;
+    font-size: 4.5em;
 }
 
 #app {
