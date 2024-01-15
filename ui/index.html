@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toy Brokers Ludo</title>
   </head>
@@ -10,5 +11,16 @@
     <h1>Toy Brokers Ludo</h1>
       <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/src/registerServiceWorker.js')
+          .then(registration => {
+            console.log('Service Worker registriert:', registration);
+          })
+          .catch(error => {
+            console.error('Fehler bei der Registrierung des Service Workers:', error);
+          });
+      }
+    </script>
   </body>
 </html>
