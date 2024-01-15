@@ -6,9 +6,14 @@ self.addEventListener('install', event => {
       return cache.addAll([
         '/',
         '../index.html',
-        '/assets/main.css',
-        'main.js'
-        // Füge hier alle Dateien hinzu, die gecacht werden sollen
+        'assets/main.css',
+        'assets/background.jpg',
+        'main.js',
+        'App.vue',
+        'components/Dice.vue',
+        'components/GameBoard.vue',
+        'components/Navbar.vue',
+        'components/Snackbar.vue'
       ]);
     })
   );
