@@ -4,6 +4,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import mitt from 'mitt';
 import PrimeVue from 'primevue/config';
+import './registerServiceWorker'
 
 const emitter = mitt();
 

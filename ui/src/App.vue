@@ -1,14 +1,14 @@
 <script setup>
 import Dice from './components/Dice.vue'
 import Snackbar from './components/Snackbar.vue'
-import GameBorad from "@/components/GameBorad.vue";
+import GameBoard from "@/components/GameBoard.vue";
 import Navbar from "@/components/Navbar.vue";
 
 </script>
 <template>
   <header>
     <div class="wrapper">
-      <GameBorad />
+      <GameBoard />
     </div>
   </header>
 
